@@ -17,13 +17,13 @@ def get_params(vocab_size, num_hiddens, device):
                 normal((num_hiddens, num_hiddens)),
                 torch.zeros(num_hiddens, device=device))
 
-    W_xz, W_hz, b_z = three()  # 更新门参数
-    W_xr, W_hr, b_r = three()  # 重置门参数
-    W_xh, W_hh, b_h = three()  # 候选隐状态参数
-    # 输出层参数
+    W_xz, W_hz, b_z = three()  # udpate gate
+    W_xr, W_hr, b_r = three()  # reset gate
+    W_xh, W_hh, b_h = three()  # candidate hidden state
+   
     W_hq = normal((num_hiddens, num_outputs))
     b_q = torch.zeros(num_outputs, device=device)
-    # 附加梯度
+    
     params = [W_xz, W_hz, b_z, W_xr, W_hr, b_r, W_xh, W_hh, b_h, W_hq, b_q]
     for param in params:
         param.requires_grad_(True)
